@@ -1,0 +1,15 @@
+input::placeholder{
+  color: #363636;
+}
+
+input:focus{
+  outline: none;
+}
+
+input {
+  color: #171717;
+}
+
+button:hover{
+  background-color: #287454;
+}
