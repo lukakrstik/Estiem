@@ -1,0 +1,10 @@
+<div *ngIf="user">
+  <h1>Welcome {{username}}</h1>
+  <button (click)="logout()">Logout</button>
+  <app-leaderboard></app-leaderboard>
+  <app-locations></app-locations>
+</div>
+
+<div *ngIf="!user">
+  <button (click)="redirectToLogin()">Sign In</button>
+</div>

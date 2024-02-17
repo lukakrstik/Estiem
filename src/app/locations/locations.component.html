@@ -1,0 +1,8 @@
+<div *ngFor="let loc of locations" [id]=loc.index>
+  <h1>{{loc.name}}</h1>
+  <h3>{{loc.points}}</h3>
+  <a [href]=loc.link>Link to Map</a>
+  <p>{{loc.challenge}}</p>
+  <button (click)="claim(loc.index)">Claim</button>
+  <p *ngIf="loc.extra.length">{{loc.extra}}</p>
+</div>
