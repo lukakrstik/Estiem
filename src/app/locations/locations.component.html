@@ -7,8 +7,8 @@
       </div>
     </div>
     <p class="p-2">{{loc.challenge}}</p>
-    <div class="flex justify-between text-center">
-      <a [href]=loc.link class="p-2 basis-1/2">Link to Map</a>
+    <div class="flex justify-between text-center border-t-2 border-krstic">
+      <a [href]=loc.link class="p-2 basis-1/2 bg-estiem text-white border-r-2 border-krstic">Link to Map</a>
       <button (click)="claim(loc.index)" class="p-2 bg-estiem text-white basis-1/2">Claim</button>
     </div>
     <div *ngIf="loc.extra.length" class="flex flex-col">

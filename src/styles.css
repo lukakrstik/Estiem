@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button:hover{
+  background-color: #287454;
+}
+
+a:hover {
+  background-color: #287454;
+}
