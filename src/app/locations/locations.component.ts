@@ -3,6 +3,7 @@ import { AuthService } from "../auth.service";
 import { DataHandleService } from "../data-handle.service";
 import { LOCATIONS } from "../locations";
 import { Location } from "../../location";
+import {set} from "@angular/fire/database";
 
 @Component({
   selector: 'app-locations',
@@ -16,35 +17,56 @@ export class LocationsComponent implements OnInit {
 
   user ?: firebase.default.User | null;
   data : number[] = [];
+  loading : boolean = true;
 
   locations: Location[] = LOCATIONS;
 
   claim(index: number){
-    this.check();
-    setTimeout(() => {
       console.log(this.data);
       if(!this.data.includes(index)) {
         // @ts-ignore
         this.dataHandle.setPoints(this.user.uid, index, 20);
+        // @ts-ignore
+        document.getElementById(`${index}`).style.pointerEvents = "none";
+        // @ts-ignore
+        document.getElementById(`${index}`).style.opacity = "30%";
       }
       else{
         // @ts-ignore
-        document.getElementById(`${index}`).style.backgroundColor = "red";
+        document.getElementById(`${index}`).style.pointerEvents = "none";
+        // @ts-ignore
+        document.getElementById(`${index}`).style.opacity = "30%";
       }
-    }, 100)
+      this.check(() => {console.log("Updated.")});
   }
 
-  check(){
+  check(callback: () => any){
     // @ts-ignore
     this.dataHandle.getCompleted(this.user.uid).then((result) => {
       this.data = Object.values(result);
       console.log("Check: " + this.data);
     })
+    setTimeout(() => { callback();},200);
+  }
+
+  disableRedeemed(){
+    setTimeout(() => {
+      console.log("b" + this.data.length);
+      for(let i = 0; i < this.data.length; i++){
+        console.log("a");
+        // @ts-ignore
+        document.getElementById(`${i}`).style.pointerEvents = "none";
+        // @ts-ignore
+        document.getElementById(`${i}`).style.opacity = "30%";
+      }
+      this.loading = false;
+    },250)
   }
   ngOnInit(): void {
     this.authService.auth.user.subscribe(u => {
       this.user = u;
+      this.check(() => {this.disableRedeemed();})
     })
-  }
 
+  }
 }

@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         krstic: '#171717',
         siva: '#eeeeee',
-        estiem: '#205e44'
+        estiem: '#205e44',
+        opasno: '#ee3859'
       }
     },
   },

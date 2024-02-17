@@ -1,10 +1,13 @@
 <div *ngIf="user">
-  <h1>Welcome {{username}}</h1>
-  <button (click)="logout()">Logout</button>
+  <div class="bg-estiem pr-0 flex justify-between border-krstic border-2">
+    <h1 class="text-2xl text-white p-4">Welcome {{username}}</h1>
+    <button (click)="logout()" class="bg-opasno text-white px-8 pl-8 p-4 border-l-2 border-krstic">Logout</button>
+  </div>
   <app-leaderboard></app-leaderboard>
   <app-locations></app-locations>
 </div>
 
 <div *ngIf="!user">
+  <h1>Oops. Looks like you aren't signed in.</h1>
   <button (click)="redirectToLogin()">Sign In</button>
 </div>
