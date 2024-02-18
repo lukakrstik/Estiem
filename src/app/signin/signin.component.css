@@ -13,3 +13,11 @@ input {
 button:hover{
   background-color: #287454;
 }
+
+.bgLogin{
+  backdrop-filter: grayscale();
+  background-image: url("src/assets/estiem_logo.png"), linear-gradient(#174431, #287454);
+  background-repeat: repeat-x;
+  background-position-y: 0px;
+
+}
