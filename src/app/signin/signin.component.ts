@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
   username : string = "";
   password : string = "";
   name: string = "";
-  errMsg ?: string;
+  errMsg : string = ""
 
 
 
@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['/locations']);
       }
     }).catch(err => {
-      this.errMsg = err.code;
+      this.errMsg = err.code.replace("auth/", "");
       console.log(this.errMsg);
     })
   }

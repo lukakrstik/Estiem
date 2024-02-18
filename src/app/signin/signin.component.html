@@ -4,6 +4,7 @@
     <input type="text" class="mb-4 px-2 mx-4 border-krstic border-2 text-siva" placeholder="Username" [(ngModel)]="username">
     <input type="text" class="mb-4 px-2 mx-4 border-krstic border-2 text-siva" placeholder="Password" [(ngModel)]="password">
     <button (click)="login()" class="bg-estiem w-full text-white p-2 border-krstic border-t-2">Login</button>
+    <p *ngIf="errMsg.length" class="border-t-2 border-krstic bg-opasno text-center text-white">{{errMsg}}</p>
   </div>
 </div>
 
