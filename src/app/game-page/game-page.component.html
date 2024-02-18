@@ -1,7 +1,10 @@
 <div *ngIf="user">
   <div class="bg-estiem pr-0 flex justify-between border-krstic border-2">
-    <h1 class="text-2xl text-white p-4">Welcome {{username}}</h1>
-    <button (click)="logout()" class="bg-opasno text-white px-8 pl-8 p-4 border-l-2 border-krstic">Logout</button>
+    <div class="flex justify-evenly">
+      <img src="assets/estiem_logo.png" class="h-fit p-4">
+      <h1 class="text-2xl text-white p-4 bold">{{username}}</h1>
+    </div>
+    <button (click)="logout()" class="btnLogout bg-opasno text-white px-4 pl-4 p-4 border-l-2 border-krstic">Logout</button>
   </div>
   <app-leaderboard></app-leaderboard>
   <app-locations></app-locations>

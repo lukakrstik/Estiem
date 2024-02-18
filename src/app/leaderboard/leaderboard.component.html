@@ -1,6 +1,6 @@
 <div class="flex justify-evenly bg-siva border-2 border-krstic border-t-0 border-l-0">
-  <div *ngFor="let team of teams" class="basis-1/5 flex text-center justify-evenly p-4 border-l-2 border-krstic shrink-1">
-    <h2>{{team.name}}</h2>
-    <h2>{{team.points}}</h2>
+  <div *ngFor="let team of teams" class="basis-1/5 flex flex-col text-center justify-evenly border-l-2 border-krstic md:flex-row">
+    <h2 class="basis-1/2 bg-krstic text-white py-2">{{team.name}}</h2>
+    <h2 class="basis-1/2 py-2">{{team.points}}</h2>
   </div>
 </div>
