@@ -37,36 +37,32 @@ export class LocationsComponent implements OnInit {
         // @ts-ignore
         document.getElementById(`${index}`).style.opacity = "30%";
       }
-      this.check(() => {console.log("Updated.")});
+      this.check();
   }
 
-  check(callback: () => any){
+  check(){
     // @ts-ignore
     this.dataHandle.getCompleted(this.user.uid).then((result) => {
       this.data = Object.values(result);
       console.log("Check: " + this.data);
+      console.log("b" + this.data.length);
+      if(this.loading) {
+        for (let i = 0; i < this.data.length; i++) {
+          console.log("a");
+          // @ts-ignore
+          document.getElementById(`${i}`).style.pointerEvents = "none";
+          // @ts-ignore
+          document.getElementById(`${i}`).style.opacity = "30%";
+        }
+        this.loading = false;
+      }
     })
-    setTimeout(() => { callback();},200);
   }
 
-  disableRedeemed(){
-    setTimeout(() => {
-      console.log("b" + this.data.length);
-      for(let i = 0; i < this.data.length; i++){
-        console.log("a");
-        // @ts-ignore
-        document.getElementById(`${i}`).style.pointerEvents = "none";
-        // @ts-ignore
-        document.getElementById(`${i}`).style.opacity = "30%";
-      }
-      this.loading = false;
-    },250)
-  }
   ngOnInit(): void {
     this.authService.auth.user.subscribe(u => {
       this.user = u;
-      this.check(() => {this.disableRedeemed();})
+      this.check()
     })
-
   }
 }

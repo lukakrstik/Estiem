@@ -1,4 +1,5 @@
-<div class="mt-2" [style]="loading ? 'pointerEvents: none' : 'pointerEvents: all' ">
+<h1 class="text-3xl mt-8 text-center" *ngIf="loading">Loading...</h1>
+<div class="mt-2" [style]="loading ? 'display: none' : 'display: contents' ">
   <div *ngFor="let loc of locations" [id]=loc.index class="flex flex-col my-4 border-2 border-krstic bg-siva">
     <div class="flex justify-between bg-krstic text-white border-b-2 border-krstic">
       <h1 class="p-2 text-xl">{{loc.name}}</h1>
