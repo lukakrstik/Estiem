@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Subscription } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,14 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 export class DataHandleService {
 
   constructor(private db: AngularFireDatabase) {}
+  // Event Emitter
+  invokePointsUpdate = new EventEmitter();
+  subVar : Subscription | undefined;
+
+  updatePoints() {
+    this.invokePointsUpdate.emit();
+  }
+  //
 
   async getPoints(uid: String) {
     let ref = this.db.database.ref(uid + "/points");
@@ -32,6 +41,10 @@ export class DataHandleService {
     if(data.exists()){
       return data.exportVal();
     }
-    return "Error Fetching Data";
+    else{
+      ref.push(-1);
+      return 'E';
+    }
+
   }
 }
