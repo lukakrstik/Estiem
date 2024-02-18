@@ -25,7 +25,7 @@ export class LocationsComponent implements OnInit {
       console.log(this.data);
       if(!this.data.includes(index)) {
         // @ts-ignore
-        if(document.getElementById("check" + index).checked){
+        if(document.getElementById("check" + index) != null && document.getElementById("check" + index).checked){
           console.log("Checkbox Selected.");
           // @ts-ignore
           this.dataHandle.setPoints(this.user.uid,
