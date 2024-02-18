@@ -3,7 +3,7 @@ import { AuthService } from "../auth.service";
 import { DataHandleService } from "../data-handle.service";
 import { LOCATIONS } from "../locations";
 import { Location } from "../../location";
-import {set} from "@angular/fire/database";
+
 
 @Component({
   selector: 'app-locations',
@@ -25,17 +25,31 @@ export class LocationsComponent implements OnInit {
       console.log(this.data);
       if(!this.data.includes(index)) {
         // @ts-ignore
-        this.dataHandle.setPoints(this.user.uid, index, 20);
+        if(document.getElementById("check" + index).checked){
+          console.log("Checkbox Selected.");
+          // @ts-ignore
+          this.dataHandle.setPoints(this.user.uid,
+            index,
+            this.locations[index].points + parseInt(this.locations[index].extra.split(". Points: ")[1]))
+            .then(() => {
+            this.updatePoints();});
+        }
+        else {
+          // @ts-ignore
+          this.dataHandle.setPoints(this.user.uid, index, this.locations[index].points).then(() => {
+            this.updatePoints();
+          });
+        }
         // @ts-ignore
         document.getElementById(`${index}`).style.pointerEvents = "none";
         // @ts-ignore
-        document.getElementById(`${index}`).style.opacity = "30%";
+        document.getElementById(`${index}`).style.opacity = "20%";
       }
       else{
         // @ts-ignore
         document.getElementById(`${index}`).style.pointerEvents = "none";
         // @ts-ignore
-        document.getElementById(`${index}`).style.opacity = "30%";
+        document.getElementById(`${index}`).style.opacity = "20%";
       }
       this.check();
   }
@@ -45,20 +59,23 @@ export class LocationsComponent implements OnInit {
     this.dataHandle.getCompleted(this.user.uid).then((result) => {
       this.data = Object.values(result);
       console.log("Check: " + this.data);
-      console.log("b" + this.data.length);
+      console.log("Check Elements " + this.data.length);
       if(this.loading) {
-        for (let i = 0; i < this.data.length; i++) {
-          console.log("a");
-          // @ts-ignore
-          document.getElementById(`${i}`).style.pointerEvents = "none";
-          // @ts-ignore
-          document.getElementById(`${i}`).style.opacity = "30%";
-        }
+        this.data.forEach((e) =>{
+          if(e != -1){
+            // @ts-ignore
+            document.getElementById(`${e}`).style.pointerEvents = "none";
+            // @ts-ignore
+            document.getElementById(`${e}`).style.opacity = "20%";
+          }
+        })
         this.loading = false;
       }
     })
   }
-
+  updatePoints(){
+    this.dataHandle.updatePoints();
+  }
   ngOnInit(): void {
     this.authService.auth.user.subscribe(u => {
       this.user = u;
