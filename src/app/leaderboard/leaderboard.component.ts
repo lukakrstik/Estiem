@@ -18,12 +18,19 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   ]
   constructor(private dataHandler: DataHandleService) {}
 
-  ngOnInit(): void {
+  setPointsLeaderboard(){
     for(let i = 0; i < 5; i++){
       this.dataHandler.getPoints(this.teams[i].uid).then((result) => {
         this.teams[i].points = result;
       })
     }
+  }
+
+  ngOnInit(): void {
+    this.setPointsLeaderboard();
+    this.dataHandler.subVar = this.dataHandler.invokePointsUpdate.subscribe(() => {
+      this.setPointsLeaderboard();
+    })
   }
 
   ngOnDestroy(): void {
