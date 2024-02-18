@@ -25,12 +25,10 @@ export class GamePageComponent implements OnInit {
     this.authService.auth.user.subscribe(u => {
       this.user = u;
       this.username = u?.email?.replace("@example.com", "").replace("t", "T").replace("m", "m ");
-    })
-    setTimeout(() => {
       if(!this.user){
         this.router.navigate(['/signin'])
       }
-    },600)
+    })
   }
 
 }
