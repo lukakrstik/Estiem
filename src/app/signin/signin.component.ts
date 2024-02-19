@@ -38,6 +38,7 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
     this.authService.auth.user.subscribe(u => {
       this.user = u;
+      this.router.navigate(["/locations"]);
     })
   }
 }
