@@ -21,20 +21,21 @@ export class LocationsComponent implements OnInit {
 
   locations: Location[] = LOCATIONS;
 
-  claim(index: number){
-      console.log(this.data);
-      if(!this.data.includes(index)) {
+  async claim(index: number) {
+    await this.check().then(() => {console.log(this.data + " Then data. AKO GO NEMA VEKE INDEKSOT PROBLEM");});
+      if (!this.data.includes(index)) {
         // @ts-ignore
-        if(document.getElementById("check" + index) != null && document.getElementById("check" + index).checked){
+        if (document.getElementById("check" + index) != null && document.getElementById("check" + index).checked) {
           console.log("Checkbox Selected.");
           // @ts-ignore
           this.dataHandle.setPoints(this.user.uid,
             index,
             this.locations[index].points + parseInt(this.locations[index].extra.split(". Points: ")[1]))
             .then(() => {
-            this.updatePoints();});
-        }
-        else {
+              this.updatePoints();
+            });
+        } else {
+          console.log("In Set points. " + this.data);
           // @ts-ignore
           this.dataHandle.setPoints(this.user.uid, index, this.locations[index].points).then(() => {
             this.updatePoints();
@@ -44,19 +45,18 @@ export class LocationsComponent implements OnInit {
         document.getElementById(`${index}`).style.pointerEvents = "none";
         // @ts-ignore
         document.getElementById(`${index}`).style.opacity = "20%";
-      }
-      else{
+      } else {
         // @ts-ignore
         document.getElementById(`${index}`).style.pointerEvents = "none";
         // @ts-ignore
         document.getElementById(`${index}`).style.opacity = "20%";
       }
-      this.check();
+    await this.check();
   }
 
-  check(){
+  async check(){
     // @ts-ignore
-    this.dataHandle.getCompleted(this.user.uid).then((result) => {
+    await this.dataHandle.getCompleted(this.user.uid).then((result) => {
       this.data = Object.values(result);
       console.log("Check: " + this.data);
       console.log("Check Elements " + this.data.length);
@@ -71,7 +71,8 @@ export class LocationsComponent implements OnInit {
         })
         this.loading = false;
       }
-    })
+    });
+    console.log("Done Checking.")
   }
   updatePoints(){
     this.dataHandle.updatePoints();
@@ -79,7 +80,7 @@ export class LocationsComponent implements OnInit {
   ngOnInit(): void {
     this.authService.auth.user.subscribe(u => {
       this.user = u;
-      this.check()
+      this.check();
     })
   }
 }
